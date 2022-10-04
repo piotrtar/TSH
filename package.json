@@ -19,6 +19,7 @@
     "@playwright/test": "^1.25.2"
   },
   "dependencies": {
-    "mailslurp-client": "^15.14.0"
+    "mailslurp-client": "^15.14.0",
+    "moment": "^2.29.4"
   }
 }

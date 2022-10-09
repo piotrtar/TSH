@@ -11,10 +11,11 @@ const today: Date = new Date();
 const yesterday: Date = addDays(-1);
 const oneMonthFromToday: Date = addMonths(1);
 const incorrectEmailAddresses: string[] = ["test", "test@", "test@test", "test@test.c"]
-const apiKey: string = process.env.API_KEY!;
+let apiKey: string
 let mailslurp: MailSlurp
 
 test.beforeAll(async () => {
+	apiKey = process.env.API_KEY!;
 	expect(apiKey).toBeDefined();
 	mailslurp = new MailSlurp({ apiKey });
 });

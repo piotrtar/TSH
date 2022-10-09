@@ -5,6 +5,7 @@ export function getDateInDatePickerTitleFormat(date: Date): string {
     return `${month} ${day}, ${year}`;
 }
 
+//Date in format yyyy-mm-dd
 export function getDateInDatePickerValueFormat(date: Date): string {
     return [
         date.getFullYear(),
@@ -13,16 +14,16 @@ export function getDateInDatePickerValueFormat(date: Date): string {
     ].join('-');
 }
 
-export function padTo2Digits(num: number) {
+export function padTo2Digits(num: number): string {
     return num.toString().padStart(2, '0');
 }
 
-export function addMonths(numOfMonths: number, date = new Date()) {
+export function addMonths(numOfMonths: number, date = new Date()): Date {
     date.setMonth(date.getMonth() + numOfMonths);
     return date;
 }
 
-export function addDays(numOfDays: number, date = new Date()) {
+export function addDays(numOfDays: number, date = new Date()): Date {
     date.setDate(date.getDate() + numOfDays);
     return date;
 }

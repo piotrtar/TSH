@@ -7,23 +7,38 @@ Test is based on Playwright v1.25.2. You can find the full playwright documentat
 ### Commands
 
 In the project directory, you can run:
-
-#### `npm init`
+```
+ npm init
+ ```
 
 Installs a package and any packages that it depends on.
 
-#### `npm run test`
+## Launching tests
 
-Launches test headless.
+```
+API_KEY={API_KEY} npm run test
+```
 
-#### `npm run dev`
+Launches tests headless.
 
-Launches test non-headless with playwright inspector.
+```
+API_KEY={API_KEY} npm run dev
+```
+
+Launches tests non-headless with playwright inspector.
+
+```
+API_KEY={API_KEY} npm run headed
+```
+
+Launches tests non-headless.
 
 ## Docker
 * Make sure you have [docker](https://www.docker.com/) installed.
 * To run tests in the docker container, make sure docker is up and running and then run the command:
 
 ```
-docker compose up
+API_KEY={API_KEY} docker compose up
 ```
+
+Where {API_KEY} is the api key of [mailslurp](https://www.mailslurp.com/) account provided in the email.

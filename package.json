@@ -1,25 +1,25 @@
 {
-  "name": "tsh",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "playwright test",
-    "dev": "PWDEBUG=1 playwright test --workers=1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/piotrtar/TSH.git"
-  },
-  "keywords": [],
-  "author": "Piotr Tarczon",
-  "license": "ISC",
-  "homepage": "https://github.com/piotrtar/TSH#readme",
-  "devDependencies": {
-    "@playwright/test": "^1.25.2"
-  },
-  "dependencies": {
-    "mailslurp-client": "^15.14.0",
-    "moment": "^2.29.4"
-  }
+	"name": "tsh",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "playwright test",
+		"dev": "PWDEBUG=1 playwright test --workers=1",
+		"headed": "playwright test --headed"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/piotrtar/TSH.git"
+	},
+	"keywords": [],
+	"author": "Piotr Tarczon",
+	"license": "ISC",
+	"homepage": "https://github.com/piotrtar/TSH#readme",
+	"devDependencies": {
+		"@playwright/test": "^1.25.2"
+	},
+	"dependencies": {
+		"mailslurp-client": "^15.14.0"
+	}
 }

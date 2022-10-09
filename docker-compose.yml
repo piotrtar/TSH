@@ -2,6 +2,8 @@ version: '3'
 services:
     playwright:
         image: mcr.microsoft.com/playwright:v1.25.2-focal
+        environment:
+            - "API_KEY=${API_KEY}"
         command: >
             bash -c "npm install &&
             npm run test"

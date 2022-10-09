@@ -42,3 +42,6 @@ API_KEY={API_KEY} docker compose up
 ```
 
 Where {API_KEY} is the api key of [mailslurp](https://www.mailslurp.com/) account provided in the email.
+
+
+Note that 4 tests fail intentionally because I interpret them as bugs.

@@ -3,14 +3,14 @@ import MailSlurp from "mailslurp-client";
 import NewsletterSubscriptionPage from '../../pages/newsletterSubscriptionPage';
 import { addDays, addMonths, formatDate, getDateInDatePickerValueFormat } from '../../helpers/dateUtils';
 
-const emailAddress: string = "d425d314-dff5-4a53-a310-6a7f8402613e@mailslurp.com";
-const name: string = "Piotr";
-const surname: string = "Test"
-const inboxId: string = "d425d314-dff5-4a53-a310-6a7f8402613e";
-const today: Date = new Date();
-const yesterday: Date = addDays(-1);
-const oneMonthFromToday: Date = addMonths(1);
-const incorrectEmailAddresses: string[] = ["test", "test@", "test@test", "test@test.c"]
+const EMAIL_ADDRESS: string = "d425d314-dff5-4a53-a310-6a7f8402613e@mailslurp.com";
+const NAME: string = "Piotr";
+const SURNAME: string = "Test"
+const INBOX_ID: string = "d425d314-dff5-4a53-a310-6a7f8402613e";
+const TODAY: Date = new Date();
+const YESTERDAY: Date = addDays(-1);
+const ONE_MONTH_FROM_TODAY: Date = addMonths(1);
+const INCORRECT_EMAIL_ADDRESSES: string[] = ["test", "test@", "test@test", "test@test.c"]
 let apiKey: string
 let mailslurp: MailSlurp
 
@@ -40,10 +40,10 @@ test.describe('test subscription to the newsletter', () => {
 	// It fails because I interpret it as a bug
 	test('shows missing required field error messages under required fields when filling them, clearing them and clicking submit button on empty form', async ({ page }) => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
-		await newsletterSubscription.enterEmail(emailAddress);
-		await newsletterSubscription.enterName(name)
-		await newsletterSubscription.enterSurname(surname);
-		await newsletterSubscription.selectStartDateByClicking(today);
+		await newsletterSubscription.enterEmail(EMAIL_ADDRESS);
+		await newsletterSubscription.enterName(NAME)
+		await newsletterSubscription.enterSurname(SURNAME);
+		await newsletterSubscription.selectStartDateByClicking(TODAY);
 		await newsletterSubscription.clickAgreement();
 		await newsletterSubscription.emailInputField.fill('');
 		await newsletterSubscription.nameInputField.fill('');
@@ -97,12 +97,12 @@ test.describe('test subscription to the newsletter', () => {
 
 	test('clears the form after page reload', async ({ page }) => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
-		await newsletterSubscription.enterEmail(emailAddress);
-		await newsletterSubscription.enterName(name);
-		await newsletterSubscription.enterSurname(surname);
+		await newsletterSubscription.enterEmail(EMAIL_ADDRESS);
+		await newsletterSubscription.enterName(NAME);
+		await newsletterSubscription.enterSurname(SURNAME);
 		await newsletterSubscription.selectType('IT');
-		await newsletterSubscription.selectStartDateByTyping(today);
-		await newsletterSubscription.selectEndDateByTyping(oneMonthFromToday);
+		await newsletterSubscription.selectStartDateByTyping(TODAY);
+		await newsletterSubscription.selectEndDateByTyping(ONE_MONTH_FROM_TODAY);
 		await newsletterSubscription.selectSex('male');
 		await newsletterSubscription.clickAgreement();
 		await page.reload();
@@ -116,7 +116,7 @@ test.describe('test subscription to the newsletter', () => {
 		expect(await newsletterSubscription.isAgreementChecked()).toBeFalsy();
 	});
 
-	incorrectEmailAddresses.forEach(text => {
+	INCORRECT_EMAIL_ADDRESSES.forEach(text => {
 		test(`shows email field valiation message when provided with incorrect email address: ${text}`, async ({ page }) => {
 			const newsletterSubscription = new NewsletterSubscriptionPage(page);
 			await newsletterSubscription.enterEmail(text);
@@ -144,21 +144,21 @@ test.describe('test subscription to the newsletter', () => {
 	test('verifies if past date is not selectable when selecting dates by clicking on datepickers', async ({ page }) => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
 		await newsletterSubscription.startDatePicker.click();
-		expect(await newsletterSubscription.isDateDisabled(yesterday)).toBeTruthy();
+		expect(await newsletterSubscription.isDateDisabled(YESTERDAY)).toBeTruthy();
 		
 	});
 	
 	test('automatically selects today date when typed past date in the date field', async ({ page }) => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
-		await newsletterSubscription.selectStartDateByTyping(yesterday);
-		await newsletterSubscription.selectEndDateByTyping(yesterday);
-		expect(await newsletterSubscription.getStartDateText()).toBe(getDateInDatePickerValueFormat(today));
-		expect(await newsletterSubscription.getEndDateText()).toBe(getDateInDatePickerValueFormat(today));
+		await newsletterSubscription.selectStartDateByTyping(YESTERDAY);
+		await newsletterSubscription.selectEndDateByTyping(YESTERDAY);
+		expect(await newsletterSubscription.getStartDateText()).toBe(getDateInDatePickerValueFormat(TODAY));
+		expect(await newsletterSubscription.getEndDateText()).toBe(getDateInDatePickerValueFormat(TODAY));
 	});
 
 	test('clears the date after clicking on x button in the date field', async ({ page }) => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
-		await newsletterSubscription.selectStartDateByClicking(today);
+		await newsletterSubscription.selectStartDateByClicking(TODAY);
 		await newsletterSubscription.startDatePicker.hover();
 		await newsletterSubscription.closeDatePickerButton.click();
 		expect(await newsletterSubscription.getStartDateText()).toBe('');
@@ -168,7 +168,7 @@ test.describe('test subscription to the newsletter', () => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
 		await newsletterSubscription.startDatePicker.click();
 		await newsletterSubscription.clickOnTodayButton();
-		expect(await newsletterSubscription.getStartDateText()).toBe(getDateInDatePickerValueFormat(today));
+		expect(await newsletterSubscription.getStartDateText()).toBe(getDateInDatePickerValueFormat(TODAY));
 	});
 
 	test('takes to new page when clicking on agreement hyperlink', async ({ page }) => {
@@ -188,41 +188,41 @@ test.describe('test subscription to the newsletter', () => {
 
 	test('fills the form with selecting dates by clicking on datepickers, submits it and verifies received email', async ({ page }) => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
-		await newsletterSubscription.enterEmail(emailAddress);
-		await newsletterSubscription.enterName(name);
-		await newsletterSubscription.enterSurname(surname);
+		await newsletterSubscription.enterEmail(EMAIL_ADDRESS);
+		await newsletterSubscription.enterName(NAME);
+		await newsletterSubscription.enterSurname(SURNAME);
 		await newsletterSubscription.selectType('IT');
-		await newsletterSubscription.selectStartDateByClicking(today);
-		await newsletterSubscription.selectEndDateByClicking(oneMonthFromToday);
+		await newsletterSubscription.selectStartDateByClicking(TODAY);
+		await newsletterSubscription.selectEndDateByClicking(ONE_MONTH_FROM_TODAY);
 		await newsletterSubscription.selectSex('male');
 		await newsletterSubscription.clickAgreement();
 		await newsletterSubscription.clickSubmitButton();
 		expect(await newsletterSubscription.getSuccessfulSubmitModalTitle()).toBe('Successfully added to newsletter');
-		const email = await mailslurp.waitForLatestEmail(inboxId);
-		expect(formatStringToOneLine(email.body)).toBe(`Hello Piotr Test, you have been signed to "it". You will get your first newsletter beginning ${formatDate(today)}. Your subscription will be activated until ${formatDate(oneMonthFromToday)}.`);
+		const email = await mailslurp.waitForLatestEmail(INBOX_ID);
+		expect(formatStringToOneLine(email.body)).toBe(`Hello Piotr Test, you have been signed to "it". You will get your first newsletter beginning ${formatDate(TODAY)}. Your subscription will be activated until ${formatDate(ONE_MONTH_FROM_TODAY)}.`);
 		expect(email.subject).toBe('You have been signed to it newsletter');
 		expect(email.from).toBe('tsh.test.qa@gmail.com');
-		expect(email.inboxId).toBe(inboxId);
+		expect(email.inboxId).toBe(INBOX_ID);
 	});
 
 	// It fails because I interpret it as a bug
 	test('fills the form with selecting dates by typing, submits it and verifies received email', async ({ page }) => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
-		await newsletterSubscription.enterEmail(emailAddress);
-		await newsletterSubscription.enterName(name);
-		await newsletterSubscription.enterSurname(surname);
+		await newsletterSubscription.enterEmail(EMAIL_ADDRESS);
+		await newsletterSubscription.enterName(NAME);
+		await newsletterSubscription.enterSurname(SURNAME);
 		await newsletterSubscription.selectType('IT');
-		await newsletterSubscription.selectStartDateByTyping(today);
-		await newsletterSubscription.selectEndDateByTyping(oneMonthFromToday);
+		await newsletterSubscription.selectStartDateByTyping(TODAY);
+		await newsletterSubscription.selectEndDateByTyping(ONE_MONTH_FROM_TODAY);
 		await newsletterSubscription.selectSex('male');
 		await newsletterSubscription.clickAgreement();
 		await newsletterSubscription.clickSubmitButton();
 		expect(await newsletterSubscription.getSuccessfulSubmitModalTitle()).toBe('Successfully added to newsletter');
-		const email = await mailslurp.waitForLatestEmail(inboxId);
-		expect(formatStringToOneLine(email.body)).toBe(`Hello Piotr Test, you have been signed to "it". You will get your first newsletter beginning ${formatDate(today)}. Your subscription will be activated until ${formatDate(oneMonthFromToday)}.`);
+		const email = await mailslurp.waitForLatestEmail(INBOX_ID);
+		expect(formatStringToOneLine(email.body)).toBe(`Hello Piotr Test, you have been signed to "it". You will get your first newsletter beginning ${formatDate(TODAY)}. Your subscription will be activated until ${formatDate(ONE_MONTH_FROM_TODAY)}.`);
 		expect(email.subject).toBe('You have been signed to it newsletter');
 		expect(email.from).toBe('tsh.test.qa@gmail.com');
-		expect(email.inboxId).toBe(inboxId);
+		expect(email.inboxId).toBe(INBOX_ID);
 	});
 });
 

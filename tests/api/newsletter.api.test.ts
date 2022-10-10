@@ -1,15 +1,15 @@
 import { expect, test } from "@playwright/test";
-const apiUrl = 'https://or7z5u0jc0.execute-api.eu-west-1.amazonaws.com/prod/';
-const email = "test@test.pl";
-const name = "testName";
-const newsType = 'it';
+const API_URL = 'https://or7z5u0jc0.execute-api.eu-west-1.amazonaws.com/prod/';
+const EMAIL = "test@test.pl";
+const NAME = "testName";
+const NEWS_TYPE = 'it';
 
 test('gets ok success status when proper request is sent', async ({ request }) => {
-    const response = await request.post(apiUrl, {
+    const response = await request.post(API_URL, {
         data: {
-            email: email,
-            name: name,
-            newsType: newsType,
+            email: EMAIL,
+            name: NAME,
+            newsType: NEWS_TYPE,
             startDate: new Date().toJSON(),
             agreement: true
         }
@@ -18,10 +18,10 @@ test('gets ok success status when proper request is sent', async ({ request }) =
 });
 
 test('gets bad request and proper response message when request is sent with no email', async ({ request }) => {
-    const response = await request.post(apiUrl, {
+    const response = await request.post(API_URL, {
         data: {
-            name: name,
-            newsType: newsType,
+            name: NAME,
+            newsType: NEWS_TYPE,
             startDate: new Date().toJSON(),
             agreement: true
         }
@@ -34,10 +34,10 @@ test('gets bad request and proper response message when request is sent with no 
 });
 
 test('gets bad request and proper response message when request is sent with no name', async ({ request }) => {
-    const response = await request.post(apiUrl, {
+    const response = await request.post(API_URL, {
         data: {
-            email: email,
-            newsType: newsType,
+            email: EMAIL,
+            newsType: NEWS_TYPE,
             startDate: new Date().toJSON(),
             agreement: true
         }
@@ -50,12 +50,12 @@ test('gets bad request and proper response message when request is sent with no 
 });
 
 test('gets bad request and proper response message when request is sent with surname', async ({ request }) => {
-    const response = await request.post(apiUrl, {
+    const response = await request.post(API_URL, {
         data: {
-            email: email,
-            name: name,
+            email: EMAIL,
+            name: NAME,
             surname: "surname",
-            newsType: newsType,
+            newsType: NEWS_TYPE,
             startDate: new Date().toJSON(),
             agreement: true
         }
@@ -68,10 +68,10 @@ test('gets bad request and proper response message when request is sent with sur
 });
 
 test('gets bad request with proper response message when request is sent with no news type', async ({ request }) => {
-    const response = await request.post(apiUrl, {
+    const response = await request.post(API_URL, {
         data: {
-            email: email,
-            name: name,
+            email: EMAIL,
+            name: NAME,
             startDate: new Date().toJSON(),
             agreement: true
         }
@@ -84,11 +84,11 @@ test('gets bad request with proper response message when request is sent with no
 });
 
 test('gets bad request with proper response message when request is sent with no start date', async ({ request }) => {
-    const response = await request.post(apiUrl, {
+    const response = await request.post(API_URL, {
         data: {
-            email: email,
-            name: name,
-            newsType: newsType,
+            email: EMAIL,
+            name: NAME,
+            newsType: NEWS_TYPE,
             agreement: true
         }
     });
@@ -100,11 +100,11 @@ test('gets bad request with proper response message when request is sent with no
 });
 
 test('gets bad request with proper response message when request is sent with agreement as false', async ({ request }) => {
-    const response = await request.post(apiUrl, {
+    const response = await request.post(API_URL, {
         data: {
-            email: email,
-            name: name,
-            newsType: newsType,
+            email: EMAIL,
+            name: NAME,
+            newsType: NEWS_TYPE,
             startDate: new Date().toJSON(),
             agreement: false
         }

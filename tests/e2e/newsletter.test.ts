@@ -21,7 +21,6 @@ test.beforeAll(async () => {
 });
 
 test.beforeEach(async ({ page }) => {
-	await mailslurp.emailController.deleteAllEmails();
 	await page.goto('/');
 });
 
@@ -145,9 +144,9 @@ test.describe('test subscription to the newsletter', () => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
 		await newsletterSubscription.startDatePicker.click();
 		expect(await newsletterSubscription.isDateDisabled(YESTERDAY)).toBeTruthy();
-		
+
 	});
-	
+
 	test('automatically selects today date when typed past date in the date field', async ({ page }) => {
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
 		await newsletterSubscription.selectStartDateByTyping(YESTERDAY);
@@ -207,6 +206,7 @@ test.describe('test subscription to the newsletter', () => {
 
 	// It fails because I interpret it as a bug
 	test('fills the form with selecting dates by typing, submits it and verifies received email', async ({ page }) => {
+		await mailslurp.emailController.deleteAllEmails();
 		const newsletterSubscription = new NewsletterSubscriptionPage(page);
 		await newsletterSubscription.enterEmail(EMAIL_ADDRESS);
 		await newsletterSubscription.enterName(NAME);
